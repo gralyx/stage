@@ -3,7 +3,7 @@ Prototyping grounds for modern web-based 3D scene graph technologies using ES6 w
 
 ## Install
 ```
-git clone https://github.com/lxfschr/stage.git stage
+git clone https://github.com/gralyx/stage.git
 cd stage
 npm install
 npm run dev
