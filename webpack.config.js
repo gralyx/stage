@@ -3,7 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 require("@babel/register");
 
 const config = {
-  entry: ['@babel/polyfill','./src/index.js'],
+  entry: [
+    '@babel/polyfill',
+    './src/index.js'
+  ],
   output: {
     path: __dirname + '/public',
     filename: 'bundle.js'
@@ -31,8 +34,9 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+        filename: __dirname + '/public/index.html',  // relative to root of the application
         hash: true,
-        filename: __dirname + '/public/index.html'  //relative to root of the application
+        template: 'src/index.html'
     })
   ],
   resolve: {

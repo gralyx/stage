@@ -6,11 +6,9 @@ const main = async () => {
     const div = document.createElement('div');
     div.className = 'main';
     document.body.appendChild(div);
-    const canvas = document.createElement('canvas');
-    canvas.id = 'surface';
-    canvas.width = 800;
-    canvas.height = 600;
+    let canvas = document.getElementById("canvas");
     document.body.appendChild(canvas);
+
     const img = document.createElement('img');
     img.src = cat;
     img.id = 'texture-image';

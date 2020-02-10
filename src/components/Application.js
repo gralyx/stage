@@ -8,9 +8,13 @@ import Mat4 from "components/math/Matrix4x4";
 import Vec3 from "components/math/Vector3";
 
 export default function Application() {
-    let width = 600, height = 480;
+    // let width = 600, height = 480;
     // width = window.innerWidth, height = window.innerHeight;
-    const gl = GLInstance('surface').fSetSize(width, height).fClear();
+    let canvas = document.getElementById("canvas");
+    let width = canvas.width;
+    let height = canvas.height;
+
+    const gl = GLInstance('canvas').fSetSize(width, height).fClear();
 
     const ELEMENT_TYPE = gl.FLOAT;
     const ELEMENT_IS_NORMALIZED = gl.FALSE;
@@ -34,15 +38,15 @@ export default function Application() {
 
     const triangleVertexBufferObject = gl.fCreateArrayBuffer(new Float32Array(triangleVertices));
 
-    ShaderUtil.enableVertexAttribArray(gl, program, 'vertPosition', 
+    ShaderUtil.enableVertexAttribArray(gl, program, 'vertPosition',
         NUM_POSITION_VERTICES,
         ELEMENT_TYPE,
         ELEMENT_IS_NORMALIZED,
         VERTEX_STRIDE,
         0 // Offset from the beginning of a single vertex to this attribute)
     );
-    
-    ShaderUtil.enableVertexAttribArray(gl, program, 'verTexCoord', 
+
+    ShaderUtil.enableVertexAttribArray(gl, program, 'verTexCoord',
         NUM_UV_VERTICES,
         ELEMENT_TYPE,
         ELEMENT_IS_NORMALIZED,
@@ -53,10 +57,10 @@ export default function Application() {
     //
     // Create Texture
     //
-    const texture = ShaderUtil.createTexture(gl, 
+    const texture = ShaderUtil.createTexture(gl,
         gl.TEXTURE_2D, // target e.g. TEXTURE_2D, TEXTURE_CUBE_MAP, and TEXTURE_3D (WebGL2 only)
-        gl.CLAMP_TO_EDGE, // Wrapping function for s e.g. CLAMP_TO_EDGE, REPEAT, MIRRORED_REPEAT 
-        gl.CLAMP_TO_EDGE, // Wrapping function for t e.g. CLAMP_TO_EDGE, REPEAT, MIRRORED_REPEAT 
+        gl.CLAMP_TO_EDGE, // Wrapping function for s e.g. CLAMP_TO_EDGE, REPEAT, MIRRORED_REPEAT
+        gl.CLAMP_TO_EDGE, // Wrapping function for t e.g. CLAMP_TO_EDGE, REPEAT, MIRRORED_REPEAT
         gl.LINEAR, // Texture minification filter e.g. LINEAR, NEAREST, NEAREST_MIPMAP_NEAREST
         gl.LINEAR // Texture magnification filter LINEAR or NEAREST
     );
@@ -92,7 +96,7 @@ export default function Application() {
     gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
     gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
     gl.uniformMatrix4fv(matProjUniformLocation, gl.FALSE, projMatrix);
-    
+
     const identityMatrix = Mat4.identity();
     let angle = 0;
 
