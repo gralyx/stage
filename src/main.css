@@ -1,6 +1,9 @@
 body {
-    background-color: #222;
-    min-height: 100vh;
+    background-color: #123;
+    margin: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 0px;
 }
 
 .main {

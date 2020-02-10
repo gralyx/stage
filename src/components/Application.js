@@ -8,11 +8,14 @@ import Mat4 from "components/math/Matrix4x4";
 import Vec3 from "components/math/Vector3";
 
 export default function Application() {
-    // let width = 600, height = 480;
-    // width = window.innerWidth, height = window.innerHeight;
     let canvas = document.getElementById("canvas");
+
     let width = canvas.width;
     let height = canvas.height;
+
+    // Size canvas to window.
+    width = window.innerWidth;
+    height = window.innerHeight;
 
     const gl = GLInstance('canvas').fSetSize(width, height).fClear();
 
@@ -110,7 +113,8 @@ export default function Application() {
         // Mat4.fromRotation(worldMatrix, angle);
         gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
 
-        gl.clearColor(0.75, 0.85, 0.8, 1.0);
+        // gl.clearColor(0.3, 0.6, 0.9, 1.0);
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
         gl.fClear();
 
         gl.drawArrays(gl.TRIANGLES, 0, 3);
