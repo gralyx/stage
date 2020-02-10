@@ -2,7 +2,6 @@
   "name": "stage",
   "version": "0.1.0",
   "main": "index.js",
-  "author": "Alex Fischer",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
