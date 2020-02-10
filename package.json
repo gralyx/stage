@@ -18,6 +18,10 @@
     "webpack-dev-server": "^3.1.14",
     "webpack-glsl-loader": "^1.0.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lxfschr/stage.git"
+  },
   "scripts": {
     "dev": "webpack-dev-server --mode=development --config webpack.config.js",
     "build": "webpack --mode=production -p --config webpack.config.js"
