@@ -16,7 +16,7 @@ export default function Application() {
     // Size canvas to window.
     width = window.innerWidth;
     height = window.innerHeight;
-
+    
     const gl = GLInstance('canvas').fSetSize(width, height).fClear();
 
     const ELEMENT_TYPE = gl.FLOAT;
