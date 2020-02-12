@@ -133,10 +133,10 @@ export default class Vector2 extends Float32Array {
         return a[0] * b[0] + a[1] * b[1];
     }
     dot(...args) { return Vector2.dot(this, ...args); }
-    
+
     static cross(out, a, b) {
         const z = a[0] * b[1] - a[1] * b[0];
-      
+
         out[0] = 0;
         out[1] = 0;
         out[2] = z;
@@ -184,7 +184,7 @@ export default class Vector2 extends Float32Array {
         return out;
     }
     transformMat4(...args) { return Vector2.transformMat4(this, this, ...args); }
-    
+
     /**
      * Rotate a 2D vector
      * @param {Vector2} out The receiving Vector2
@@ -199,11 +199,11 @@ export default class Vector2 extends Float32Array {
               p1 = a[1] - b[1];
         const s = Math.sin(rad);
         const c = Math.cos(rad);
-      
+
         //Perform rotation and translate to correct position
         out[0] = p0*c - p1*s + b[0];
         out[1] = p0*s + p1*c + b[1];
-      
+
         return out;
     }
     rotate(...args) { return Vector2.rotate(this, ...args); }

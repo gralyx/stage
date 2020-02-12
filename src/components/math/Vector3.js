@@ -151,11 +151,11 @@ export default class Vector3 extends Float32Array {
         return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
     }
     dot(...args) { return Vector3.dot(this, ...args); }
-    
+
     cross(out, a, b) {
         const ax = a[0], ay = a[1], az = a[2];
         const bx = b[0], by = b[1], bz = b[2];
-      
+
         out[0] = ay * bz - az * by;
         out[1] = az * bx - ax * bz;
         out[2] = ax * by - ay * bx;
@@ -199,11 +199,11 @@ export default class Vector3 extends Float32Array {
         p[0] = a[0] - b[0];
         p[1] = a[1] - b[1];
         p[2] = a[2] - b[2];
-      
+
         //Perform rotation
         const s = Math.sin(rad);
         const c = Math.cos(rad);
-        
+
         if (axis === "x") {
             r[0] = p[0];
             r[1] = p[1]*c - p[2]*s;
@@ -218,12 +218,12 @@ export default class Vector3 extends Float32Array {
             r[2] = p[2];
 
         }
-      
+
         //Translate to correct position
         out[0] = r[0] + b[0];
         out[1] = r[1] + b[1];
         out[2] = r[2] + b[2];
-      
+
         return out;
     }
 

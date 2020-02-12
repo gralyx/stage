@@ -33,7 +33,7 @@ export default class RenderLoop {
                 this.msLastFrame = msCurrent;
 
                 this.callback(deltaTime);
-                
+
                 if (this.isActive) {
                     window.requestAnimationFrame(this.run);
                 }

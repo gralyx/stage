@@ -9,7 +9,7 @@ export default class Matrix4x4 extends Float32Array {
     static identity() {
         const mat4 = new Matrix4x4();
         for (let i = 0; i < mat4.length; i+=5) {
-            mat4[i] = 1; 
+            mat4[i] = 1;
         }
         return mat4;
     }
@@ -85,7 +85,7 @@ export default class Matrix4x4 extends Float32Array {
             y1 *= len;
             y2 *= len;
         }
-        
+
         out[0] = x0;
         out[1] = y0;
         out[2] = z0;

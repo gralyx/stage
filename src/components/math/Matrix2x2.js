@@ -9,7 +9,7 @@ export default class Matrix2x2 extends Float32Array {
     static identity() {
         const mat4 = new Matrix2x2();
         for (let i = 0; i < mat4.length; i+=3) {
-            mat4[i] = 1; 
+            mat4[i] = 1;
         }
         return mat4;
     }
@@ -71,7 +71,7 @@ export default class Matrix2x2 extends Float32Array {
           out[2] = a[1];
           out[3] = a[3];
         }
-      
+
         return out;
     }
     transpose() { return Matrix2x2.transpose(this); }
@@ -80,18 +80,18 @@ export default class Matrix2x2 extends Float32Array {
         const x = a[0], y = a[1], z = a[2], w = a[3];
 
         const det = x * w - z * y;
-      
+
         if (!det) {
           return null;
         }
 
         det = 1.0 / det;
-      
+
         out[0] =  w * det;
         out[1] = -y * det;
         out[2] = -z * det;
         out[3] =  x * det;
-      
+
         return out;
     }
     invert(...args) { return Matrix2x2.invert(this, ...args); }

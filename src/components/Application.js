@@ -16,7 +16,7 @@ export default function Application() {
     // Size canvas to window.
     width = window.innerWidth;
     height = window.innerHeight;
-    
+
     const gl = GLInstance('canvas').fSetSize(width, height).fClear();
 
     const ELEMENT_TYPE = gl.FLOAT;
@@ -31,8 +31,7 @@ export default function Application() {
     //
     // Create buffer
     //
-    const triangleVertices =
-    [
+    const triangleVertices = [
         // X, Y, Z        U, V
         0.0, 0.5, 0.0,    0.4, 0.5,
         -0.5, -0.5, 0.0,  0.8, 0.9,

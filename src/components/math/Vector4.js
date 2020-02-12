@@ -157,7 +157,7 @@ export default class Vector4 extends Float32Array {
         return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
     }
     dot(...args) { return Vector3.dot(this, ...args); }
-    
+
     cross(out, u, v, w) {
         const A = (v[0] * w[1]) - (v[1] * w[0]),
               B = (v[0] * w[2]) - (v[2] * w[0]),
@@ -169,12 +169,12 @@ export default class Vector4 extends Float32Array {
               H = u[1],
               I = u[2],
               J = u[3];
-        
+
         out[0] = (H * F) - (I * E) + (J * D);
         out[1] = -(G * F) + (I * C) - (J * B);
         out[2] = (G * E) - (H * C) + (J * A);
         out[3] = -(G * D) + (H * B) - (I * A);
-        
+
         return out;
     }
     cross(...args) { return Vector3.dot(this, this, ...args); }
