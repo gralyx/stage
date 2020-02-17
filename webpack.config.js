@@ -3,20 +3,17 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 require("@babel/register");
 
 module.exports =  {
-    // devtool: "inline-source-map",
     devtool: 'source-map',
-    // devtool: 'inline-module-source-map',
-
     entry: [
         "@babel/polyfill",
-        "./src/index.js"
+        "./src/index.js",
     ],
     output: {
         path: __dirname + "/public",
-        filename: "bundle.js"
+        filename: "bundle.js",
     },
     module: {
-        rules : [
+        rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -33,20 +30,20 @@ module.exports =  {
             {
                 test: /\.glsl$/,
                 use: ["webpack-glsl-loader"]
-            }
+            },
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
-                filename: __dirname + "/public/index.html",  // relative to root of the application
-                hash: true,
-                template: "src/index.html"
+            filename: __dirname + "/public/index.html",  // relative to root of the application
+            hash: false,
+            template: "src/index.html",
         })
     ],
     resolve: {
         modules: [
             path.resolve("./src"),
-            path.resolve("./node_modules")
+            path.resolve("./node_modules"),
         ]
     },
     devServer: {
@@ -65,7 +62,7 @@ module.exports =  {
             modules: false,
             timings: false,
             version: false,
-        }
+        },
     },
     watch: false
 };
