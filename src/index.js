@@ -4,9 +4,10 @@ import cat from  "resources/cat.jpg";
 import ZIPArchive from './components/archive/zip/ZIPArchive';
 import ArrayHelper from './components/ArrayHelper';
 
-function toHex(x) {
-    return "0x" + x.toString(16).toUpperCase();
+function toHex(x, prefix = "0x") {
+    return prefix + (x >>> 0).toString(16).toUpperCase();
 }
+
 function load_file(filename, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", filename, true);
@@ -32,8 +33,8 @@ const main = async () => {
 
         let s = 0xfffffff;
 
-        // console.log(toHex(s))
-        console.log(s)
+        console.log(toHex(s))
+        // console.log(s)
 
         // let b = helper.read_byte();
         // let s = helper.read_ushort();
