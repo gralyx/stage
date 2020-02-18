@@ -131,5 +131,5 @@ export default class Matrix4x4 extends Float32Array {
           out[14] = -2 * near;
         }
         return out;
-      }
+    }
 }
