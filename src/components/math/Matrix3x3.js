@@ -1,27 +1,40 @@
 import MathUtils from "./MathUtils";
 
-export default class Matrix4x4 extends Float32Array {
+export default class Matrix3x3 extends Float32Array {
 
     constructor() {
-        super(16);
+        super(9);
     }
 
     static identity() {
-        const mat4 = new Matrix4x4();
-        for (let i = 0; i < mat4.length; i+=5) {
+        const mat4 = new Matrix3x3();
+        for (let i = 0; i < mat4.length; i+=4) {
             mat4[i] = 1;
         }
         return mat4;
     }
 
+    static fromMat4(out, a) {
+        out[0] = a[0];
+        out[1] = a[1];
+        out[2] = a[2];
+        out[3] = a[4];
+        out[4] = a[5];
+        out[5] = a[6];
+        out[6] = a[8];
+        out[7] = a[9];
+        out[8] = a[10];
+        return out;
+    }
+
     static clone(a) {
-        const out = new Matrix4x4();
+        const out = new Matrix3x3();
         for (let i = 0; i < a.length; i++) {
             out[i] = a[i];
         }
         return out;
     }
-    clone() { return Matrix4x4.clone(this); }
+    clone() { return Matrix3x3.clone(this); }
 
     static copy(out, a) {
         for (let i = 0; i < a.length; i++) {
@@ -29,7 +42,7 @@ export default class Matrix4x4 extends Float32Array {
         }
         return out;
     }
-    copy(...args) { return Matrix4x4.copy(this, ...args); }
+    copy(...args) { return Matrix3x3.copy(this, ...args); }
 
     fromValues(m00, m01, m02, m10, m11, m12, m20, m21, m22) {
         const out = new Matrix4x4();
@@ -45,6 +58,17 @@ export default class Matrix4x4 extends Float32Array {
         return out;
     }
 
+    static rotate(out, a, rad) {
+        const x0 = a[0], x1 = a[1],
+              y0 = a[2], y1 = a[3];
+        const s = Math.sin(rad);
+        const c = Math.cos(rad);
+        out[0] = x0 *  c + y0 * s; out[1] = x1 *  c + y1 * s;
+        out[2] = x0 * -s + y0 * c; out[3] = x1 * -s + y1 * c;
+        return out;
+    }
+    rotate(...args) { return Matrix3x3.rotate(this, this, ...args); }
+
     static set(out, m00, m01, m02, m10, m11, m12, m20, m21, m22) {
         out[0] = m00;
         out[1] = m01;
@@ -57,7 +81,7 @@ export default class Matrix4x4 extends Float32Array {
         out[8] = m22;
         return out;
     }
-    set(...args) { return Matrix4x4.set(this, ...args); }
+    set(...args) { return Matrix3x3.set(this, ...args); }
 
     static transpose(out, a) {
         if (out === a) {
@@ -82,7 +106,7 @@ export default class Matrix4x4 extends Float32Array {
 
         return out;
     }
-    transpose() { return Matrix4x4.transpose(this); }
+    transpose() { return Matrix3x3.transpose(this); }
 
     static invert(out, a) {
         const a00 = a[0], a01 = a[1], a02 = a[2];
@@ -111,7 +135,7 @@ export default class Matrix4x4 extends Float32Array {
         out[8] = (a11 * a00 - a01 * a10) * det;
         return out;
     }
-    invert(...args) { return Matrix4x4.invert(this, ...args); }
+    invert(...args) { return Matrix3x3.invert(this, ...args); }
 
     static determinant(a) {
         const a00 = a[0], a01 = a[1], a02 = a[2];
@@ -120,7 +144,7 @@ export default class Matrix4x4 extends Float32Array {
 
         return a00 * (a22 * a11 - a12 * a21) + a01 * (-a22 * a10 + a12 * a20) + a02 * (a21 * a10 - a11 * a20);
     }
-    determinant() { return Matrix4x4.determinant(this); }
+    determinant() { return Matrix3x3.determinant(this); }
 
     static multiply(out, a, b) {
         const a00 = a[0], a01 = a[1], a02 = a[2];
@@ -144,9 +168,9 @@ export default class Matrix4x4 extends Float32Array {
         out[8] = b20 * a02 + b21 * a12 + b22 * a22;
         return out;
     }
-    static mul(...args) {return Matrix4x4.multiply(...args); }
-    multiply(...args) { return Matrix4x4.multiply(this, this, ...args); }
-    mul(...args) { return Matrix4x4.multiply(this, this, ...args); }
+    static mul(...args) {return Matrix3x3.multiply(...args); }
+    multiply(...args) { return Matrix3x3.multiply(this, this, ...args); }
+    mul(...args) { return Matrix3x3.multiply(this, this, ...args); }
 
     static translate(out, a, v) {
         const x0 = a[0], x1 = a[1], x2 = a[2],
@@ -169,7 +193,7 @@ export default class Matrix4x4 extends Float32Array {
         out[8] = x * x2 + y * y2 + z2;
         return out;
     }
-    translate(...args) { return Matrix4x4.translate(this, this, ...args); }
+    translate(...args) { return Matrix3x3.translate(this, this, ...args); }
 
     static rotate(out, a, rad) {
         const a00 = a[0], a01 = a[1], a02 = a[2],
@@ -192,7 +216,7 @@ export default class Matrix4x4 extends Float32Array {
         out[8] = a22;
         return out;
     }
-    rotate(...args) { return Matrix4x4.rotate(this, this, ...args); }
+    rotate(...args) { return Matrix3x3.rotate(this, this, ...args); }
 
     static scale(out, a, v) {
         const x = v[0], y = v[1];
@@ -210,7 +234,7 @@ export default class Matrix4x4 extends Float32Array {
         out[8] = a[8];
         return out;
     }
-    scale(...args) { return Matrix4x4.scale(this, this, ...args); }
+    scale(...args) { return Matrix3x3.scale(this, this, ...args); }
 
     static fromTranslation(out, v) {
         out[0] = 1;
@@ -291,7 +315,7 @@ export default class Matrix4x4 extends Float32Array {
                          a[3] + ', ' + a[4] + ', ' + a[5] + ', ' +
                          a[6] + ', ' + a[7] + ', ' + a[8] + ')';
     }
-    toString() { return Matrix4x4.toString(); }
+    toString() { return Matrix3x3.toString(); }
 
     static add(out, a, b) {
         for (let i = 0; i < a.length; i++) {
@@ -299,7 +323,7 @@ export default class Matrix4x4 extends Float32Array {
         }
         return out;
     }
-    add(...args) { return Matrix4x4.add(this, this, ...args); }
+    add(...args) { return Matrix3x3.add(this, this, ...args); }
 
     static subtract(out, a, b) {
         for (let i = 0; i < a.length; i++) {
@@ -307,9 +331,9 @@ export default class Matrix4x4 extends Float32Array {
         }
         return out;
     }
-    static sub(out, a, b) { return Matrix4x4.subtract(out, a, b); }
-    subtract(...args) { return Matrix4x4.subtract(this, this, ...args); }
-    sub(...args) { return Matrix4x4.subtract(this, this, ...args); }
+    static sub(out, a, b) { return Matrix3x3.subtract(out, a, b); }
+    subtract(...args) { return Matrix3x3.subtract(this, this, ...args); }
+    sub(...args) { return Matrix3x3.subtract(this, this, ...args); }
 
     static exactEquals(a, b) {
         if (a.length !== b.length) return false;
@@ -320,7 +344,7 @@ export default class Matrix4x4 extends Float32Array {
 
         return true;
     }
-    exactEquals(...args) { return Matrix4x4.exactEquals(this, ...args); }
+    exactEquals(...args) { return Matrix3x3.exactEquals(this, ...args); }
 
     static equals(a, b) {
         if (a.length !== b.length) return false;
@@ -338,7 +362,7 @@ export default class Matrix4x4 extends Float32Array {
                 Math.abs(a2 - b2) <= MathUtils.EPSILON*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
                 Math.abs(a3 - b3) <= MathUtils.EPSILON*Math.max(1.0, Math.abs(a3), Math.abs(b3)));
     }
-    equals(...args) { return Matrix4x4.equals(this, ...args); }
+    equals(...args) { return Matrix3x3.equals(this, ...args); }
 
     static multiplyScalar(out, a, b) {
         out[0] = a[0] * b;
@@ -352,112 +376,5 @@ export default class Matrix4x4 extends Float32Array {
         out[8] = a[8] * b;
         return out;
     }
-    multiplyScalar(...args) { return Matrix4x4.multiplyScalar(this, this, ...args); }
-
-    static lookAt(out, target, cameraPosition, up) {
-        let x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
-        const targetX = target[0];
-        const targetY = target[1];
-        const targetZ = target[2];
-        const upX = up[0];
-        const upY = up[1];
-        const upZ = up[2];
-        const cameraPositionX = cameraPosition[0];
-        const cameraPositionY = cameraPosition[1];
-        const cameraPositionZ = cameraPosition[2];
-
-        const EPSILON = 0.00001;
-
-        if (Math.abs(targetX - cameraPositionX) < EPSILON &&
-            Math.abs(targetY - cameraPositionY) < EPSILON &&
-            Math.abs(targetZ - cameraPositionZ) < EPSILON) {
-            return identity();
-        }
-
-        z0 = targetX - cameraPositionX;
-        z1 = targetY - cameraPositionY;
-        z2 = targetZ - cameraPositionZ;
-
-        len = 1 / Math.hypot(z0, z1, z2);
-        z0 *= len;
-        z1 *= len;
-        z2 *= len;
-
-        x0 = upY * z2 - upZ * z1;
-        x1 = upZ * z0 - upX * z2;
-        x2 = upX * z1 - upY * z0;
-        len = Math.hypot(x0, x1, x2);
-        if (!len) {
-            x0 = 0;
-            x1 = 0;
-            x2 = 0;
-        } else {
-            len = 1 / len;
-            x0 *= len;
-            x1 *= len;
-            x2 *= len;
-        }
-
-        y0 = z1 * x2 - z2 * x1;
-        y1 = z2 * x0 - z0 * x2;
-        y2 = z0 * x1 - z1 * x0;
-
-        len = Math.hypot(y0, y1, y2);
-        if (!len) {
-            y0 = 0;
-            y1 = 0;
-            y2 = 0;
-        } else {
-            len = 1 / len;
-            y0 *= len;
-            y1 *= len;
-            y2 *= len;
-        }
-
-        out[0] = x0;
-        out[1] = y0;
-        out[2] = z0;
-        out[3] = 0;
-        out[4] = x1;
-        out[5] = y1;
-        out[6] = z1;
-        out[7] = 0;
-        out[8] = x2;
-        out[9] = y2;
-        out[10] = z2;
-        out[11] = 0;
-        out[12] = -(x0 * targetX + x1 * targetY + x2 * targetZ);
-        out[13] = -(y0 * targetX + y1 * targetY + y2 * targetZ);
-        out[14] = -(z0 * targetX + z1 * targetY + z2 * targetZ);
-        out[15] = 1;
-
-        return out;
-    }
-
-    static perspective(out, fovy, aspect, near, far) {
-        const f = 1.0 / Math.tan(fovy / 2);
-        out[0] = f / aspect;
-        out[1] = 0;
-        out[2] = 0;
-        out[3] = 0;
-        out[4] = 0;
-        out[5] = f;
-        out[6] = 0;
-        out[7] = 0;
-        out[8] = 0;
-        out[9] = 0;
-        out[11] = -1;
-        out[12] = 0;
-        out[13] = 0;
-        out[15] = 0;
-        if (far != null && far !== Infinity) {
-          const nf = 1 / (near - far);
-          out[10] = (far + near) * nf;
-          out[14] = (2 * far * near) * nf;
-        } else {
-          out[10] = -1;
-          out[14] = -2 * near;
-        }
-        return out;
-      }
+    multiplyScalar(...args) { return Matrix3x3.multiplyScalar(this, this, ...args); }
 }
