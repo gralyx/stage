@@ -42,7 +42,7 @@ export default class Matrix2x2 extends Float32Array {
         out[2] = x0 * -s + y0 * c; out[3] = x1 * -s + y1 * c;
         return out;
     }
-    transpose(...args) { return Matrix2x2.transpose(this, this, ...args); }
+    rotate(...args) { return Matrix2x2.rotate(this, this, ...args); }
 
     static identity(out) {
         out[0] = 1; out[1] = 0;
@@ -113,18 +113,6 @@ export default class Matrix2x2 extends Float32Array {
     static mul(...args) {return Matrix2x2.multiply(...args); }
     multiply(...args) { return Matrix2x2.multiply(this, this, ...args); }
     mul(...args) { return Matrix2x2.multiply(this, this, ...args); }
-
-    static rotate(out, a, rad) {
-        const x = a[0], y = a[1], z = a[2], w = a[3];
-        const s = Math.sin(rad);
-        const c = Math.cos(rad);
-        out[0] = x *  c + z * s;
-        out[1] = y *  c + w * s;
-        out[2] = x * -s + z * c;
-        out[3] = y * -s + w * c;
-        return out;
-    }
-    rotate(...args) { return Matrix2x2.rotate(this, this, ...args); }
 
     static scale(out, a, v) {
         const x0 = a[0], x1 = a[1], y0 = a[2], y1 = a[3];

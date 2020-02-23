@@ -7,9 +7,9 @@ export default class Matrix3x3 extends Float32Array {
     }
 
     static identity() {
-        const mat4 = new Matrix3x3();
-        for (let i = 0; i < mat4.length; i+=4) {
-            mat4[i] = 1;
+        const mat3 = new Matrix3x3();
+        for (let i = 0; i < mat3.length; i+=4) {
+            mat3[i] = 1;
         }
         return mat4;
     }
