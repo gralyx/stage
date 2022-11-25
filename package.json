@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "devDependencies": {
-        "@babel/cli": "^7.11.6",
+        "@babel/cli": "^7.19.3",
         "@babel/core": "^7.11.6",
         "@babel/preset-env": "^7.11.5",
         "@babel/register": "^7.11.5",
@@ -13,9 +13,9 @@
         "file-loader": "^5.1.0",
         "html-webpack-plugin": "^5.5.0",
         "url-loader": "^3.0.0",
-        "webpack": "^4.44.2",
+        "webpack": "^5.75.0",
         "webpack-cli": "^3.3.12",
-        "webpack-dev-server": "^3.11.3",
+        "webpack-dev-server": "^4.11.1",
         "webpack-glsl-loader": "^1.0.1"
     },
     "repository": {
